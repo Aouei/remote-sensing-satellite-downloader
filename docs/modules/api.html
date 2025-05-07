@@ -1,0 +1,888 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>API &#8212; sat_download 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=f9c1cefe"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/api';</script>
+    <link rel="canonical" href="https://github.com/Aouei/remote-sensing-satellite-downloader/modules/api.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data Types" href="data_types.html" />
+    <link rel="prev" title="Services" href="services.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">sat_download 1.0.0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="services.html">Services</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_types.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="factories.html">Factories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enums.html">Enumerations</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/modules/api.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>API</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-sat_download.api.base">Base API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.base.SatelliteAPI"><code class="docutils literal notranslate"><span class="pre">SatelliteAPI</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.base.SatelliteAPI.bulk_search"><code class="docutils literal notranslate"><span class="pre">SatelliteAPI.bulk_search()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.base.SatelliteAPI.download"><code class="docutils literal notranslate"><span class="pre">SatelliteAPI.download()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.base.SatelliteAPI.search"><code class="docutils literal notranslate"><span class="pre">SatelliteAPI.search()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-sat_download.api.odata">OData API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.odata.ODataAPI"><code class="docutils literal notranslate"><span class="pre">ODataAPI</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.odata.ODataAPI.SEARCH_URL"><code class="docutils literal notranslate"><span class="pre">ODataAPI.SEARCH_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.odata.ODataAPI.DOWNLOAD_URL"><code class="docutils literal notranslate"><span class="pre">ODataAPI.DOWNLOAD_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.odata.ODataAPI.TOKEN_URL"><code class="docutils literal notranslate"><span class="pre">ODataAPI.TOKEN_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">ODataAPI.DOWNLOAD_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">ODataAPI.SEARCH_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">ODataAPI.TOKEN_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.odata.ODataAPI.download"><code class="docutils literal notranslate"><span class="pre">ODataAPI.download()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.odata.ODataAPI.search"><code class="docutils literal notranslate"><span class="pre">ODataAPI.search()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-sat_download.api.usgs">USGS API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI"><code class="docutils literal notranslate"><span class="pre">USGSAPI</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.API_URL"><code class="docutils literal notranslate"><span class="pre">USGSAPI.API_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.LOGIN_ENDPOINT"><code class="docutils literal notranslate"><span class="pre">USGSAPI.LOGIN_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.SEARCH_ENDPOINT"><code class="docutils literal notranslate"><span class="pre">USGSAPI.SEARCH_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.DOWNLOAD_REQUEST_ENDPOINT"><code class="docutils literal notranslate"><span class="pre">USGSAPI.DOWNLOAD_REQUEST_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.DOWNLOAD_OPTIONS_ENDPOINT"><code class="docutils literal notranslate"><span class="pre">USGSAPI.DOWNLOAD_OPTIONS_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">USGSAPI.API_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">USGSAPI.DOWNLOAD_OPTIONS_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">USGSAPI.DOWNLOAD_REQUEST_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><code class="docutils literal notranslate"><span class="pre">USGSAPI.LOGIN_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><code class="docutils literal notranslate"><span class="pre">USGSAPI.SEARCH_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.download"><code class="docutils literal notranslate"><span class="pre">USGSAPI.download()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.search"><code class="docutils literal notranslate"><span class="pre">USGSAPI.search()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="api">
+<h1>API<a class="headerlink" href="#api" title="Link to this heading">#</a></h1>
+<p>This module contains the API clients for different satellite data providers.</p>
+<section id="module-sat_download.api.base">
+<span id="base-api"></span><h2>Base API<a class="headerlink" href="#module-sat_download.api.base" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sat_download.api.base.SatelliteAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sat_download.api.base.</span></span><span class="sig-name descname"><span class="pre">SatelliteAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sat_download/api/base.html#SatelliteAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_download.api.base.SatelliteAPI" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class for satellite data API clients.</p>
+<p>This class defines the common interface for interacting with different
+satellite data provider APIs, such as Copernicus Data Space and USGS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – Username or API key for authentication with the satellite data provider</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – Password or secret for authentication with the satellite data provider</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Concrete implementations should handle the specific authentication mechanisms
+and API endpoints required by each satellite data provider.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#sat_download.api.odata.ODataAPI" title="sat_download.api.odata.ODataAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_download.api.odata.ODataAPI</span></code></a></dt><dd><p>Implementation for Copernicus Data Space API</p>
+</dd>
+<dt><a class="reference internal" href="#sat_download.api.usgs.USGSAPI" title="sat_download.api.usgs.USGSAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_download.api.usgs.USGSAPI</span></code></a></dt><dd><p>Implementation for USGS Earth Explorer API</p>
+</dd>
+</dl>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="sat_download.api.base.SatelliteAPI.bulk_search">
+<span class="sig-name descname"><span class="pre">bulk_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_types.html#sat_download.data_types.search.SearchFilters" title="sat_download.data_types.search.SearchFilters"><span class="pre">SearchFilters</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="data_types.html#sat_download.data_types.search.SatelliteImage" title="sat_download.data_types.search.SatelliteImage"><span class="pre">SatelliteImage</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/sat_download/api/base.html#SatelliteAPI.bulk_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_download.api.base.SatelliteAPI.bulk_search" title="Link to this definition">#</a></dt>
+<dd><p>Perform an iterative search over a date range by breaking it into smaller queries.</p>
+<p>This method handles large time-range searches by iteratively searching smaller
+time periods and combining the results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<a class="reference internal" href="data_types.html#sat_download.data_types.search.SearchFilters" title="sat_download.data_types.search.SearchFilters"><em>SearchFilters</em></a>) – The search filters to apply, including date range</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Combined dictionary of search results from all iterations</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SearchResults</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This implementation progressively narrows the search window by updating
+the end_date of the filters based on the most recent image found.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sat_download.api.base.SatelliteAPI.download">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sat_download/api/base.html#SatelliteAPI.download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_download.api.base.SatelliteAPI.download" title="Link to this definition">#</a></dt>
+<dd><p>Download a satellite image by its ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_id</strong> (<em>str</em>) – The unique identifier of the image to download</p></li>
+<li><p><strong>outname</strong> (<em>str</em>) – The output filename where the image will be saved</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Implementation may return None or status message on success</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None or str</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is an abstract method that concrete implementations must override.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sat_download.api.base.SatelliteAPI.search">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_types.html#sat_download.data_types.search.SearchFilters" title="sat_download.data_types.search.SearchFilters"><span class="pre">SearchFilters</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="data_types.html#sat_download.data_types.search.SatelliteImage" title="sat_download.data_types.search.SatelliteImage"><span class="pre">SatelliteImage</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/sat_download/api/base.html#SatelliteAPI.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_download.api.base.SatelliteAPI.search" title="Link to this definition">#</a></dt>
+<dd><p>Search for satellite imagery using specified filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<a class="reference internal" href="data_types.html#sat_download.data_types.search.SearchFilters" title="sat_download.data_types.search.SearchFilters"><em>SearchFilters</em></a>) – The search filters to apply to the search</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary mapping product IDs to SatelliteImage objects</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SearchResults</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is an abstract method that concrete implementations must override.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-sat_download.api.odata">
+<span id="odata-api"></span><h2>OData API<a class="headerlink" href="#module-sat_download.api.odata" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sat_download.api.odata.ODataAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sat_download.api.odata.</span></span><span class="sig-name descname"><span class="pre">ODataAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sat_download/api/odata.html#ODataAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_download.api.odata.ODataAPI" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sat_download.api.base.SatelliteAPI" title="sat_download.api.base.SatelliteAPI"><code class="xref py py-class docutils literal notranslate"><span class="pre">SatelliteAPI</span></code></a></p>
+<p>Implementation of SatelliteAPI for the Copernicus Data Space Ecosystem OData API.</p>
+<p>This class provides methods to search and download satellite imagery from the
+Copernicus Data Space Ecosystem using their OData API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – Username for authentication with the Copernicus Data Space API</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – Password for authentication with the Copernicus Data Space API</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sat_download.api.odata.ODataAPI.SEARCH_URL">
+<span class="sig-name descname"><span class="pre">SEARCH_URL</span></span><a class="headerlink" href="#sat_download.api.odata.ODataAPI.SEARCH_URL" title="Link to this definition">#</a></dt>
+<dd><p>Endpoint URL for searching satellite products</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sat_download.api.odata.ODataAPI.DOWNLOAD_URL">
+<span class="sig-name descname"><span class="pre">DOWNLOAD_URL</span></span><a class="headerlink" href="#sat_download.api.odata.ODataAPI.DOWNLOAD_URL" title="Link to this definition">#</a></dt>
+<dd><p>Endpoint URL for downloading satellite products</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sat_download.api.odata.ODataAPI.TOKEN_URL">
+<span class="sig-name descname"><span class="pre">TOKEN_URL</span></span><a class="headerlink" href="#sat_download.api.odata.ODataAPI.TOKEN_URL" title="Link to this definition">#</a></dt>
+<dd><p>Endpoint URL for obtaining authentication tokens</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Notes</p>
+<p>Authentication is performed using Keycloak OAuth2 tokens which are obtained
+as needed for download operations.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#sat_download.api.base.SatelliteAPI" title="sat_download.api.base.SatelliteAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_download.api.base.SatelliteAPI</span></code></a></dt><dd><p>Base class defining the API interface</p>
+</dd>
+<dt><a class="reference internal" href="#sat_download.api.usgs.USGSAPI" title="sat_download.api.usgs.USGSAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_download.api.usgs.USGSAPI</span></code></a></dt><dd><p>Implementation for USGS Earth Explorer API</p>
+</dd>
+</dl>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">DOWNLOAD_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://download.dataspace.copernicus.eu/odata/v1/Products'</span></em><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">SEARCH_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://catalogue.dataspace.copernicus.eu/odata/v1/Products'</span></em><a class="headerlink" href="#id1" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">TOKEN_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token'</span></em><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sat_download.api.odata.ODataAPI.download">
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/sat_download/api/odata.html#ODataAPI.download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_download.api.odata.ODataAPI.download" title="Link to this definition">#</a></dt>
+<dd><p>Download a satellite image by its ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_id</strong> (<em>str</em>) – The unique identifier of the image to download</p></li>
+<li><p><strong>outname</strong> (<em>str</em>) – The output filename where the image will be saved</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Success message on successful download</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If the download fails</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Implementation of the abstract download method for the Copernicus Data Space API.
+Uses tqdm to display a progress bar during download.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sat_download.api.odata.ODataAPI.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_types.html#sat_download.data_types.search.SearchFilters" title="sat_download.data_types.search.SearchFilters"><span class="pre">SearchFilters</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="data_types.html#sat_download.data_types.search.SatelliteImage" title="sat_download.data_types.search.SatelliteImage"><span class="pre">SatelliteImage</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/sat_download/api/odata.html#ODataAPI.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_download.api.odata.ODataAPI.search" title="Link to this definition">#</a></dt>
+<dd><p>Search for satellite imagery using specified filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<a class="reference internal" href="data_types.html#sat_download.data_types.search.SearchFilters" title="sat_download.data_types.search.SearchFilters"><em>SearchFilters</em></a>) – The search filters to apply to the search</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary mapping product IDs to SatelliteImage objects</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SearchResults</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If the API request fails</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Implementation of the abstract search method for the Copernicus Data Space API.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-sat_download.api.usgs">
+<span id="usgs-api"></span><h2>USGS API<a class="headerlink" href="#module-sat_download.api.usgs" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sat_download.api.usgs.USGSAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sat_download.api.usgs.</span></span><span class="sig-name descname"><span class="pre">USGSAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sat_download/api/usgs.html#USGSAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_download.api.usgs.USGSAPI" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sat_download.api.base.SatelliteAPI" title="sat_download.api.base.SatelliteAPI"><code class="xref py py-class docutils literal notranslate"><span class="pre">SatelliteAPI</span></code></a></p>
+<p>Implementation of SatelliteAPI for the USGS Earth Explorer API.</p>
+<p>This class provides methods to search and download satellite imagery from the
+USGS Earth Explorer service using their Machine-to-Machine (M2M) API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – Username for authentication with the USGS Earth Explorer API</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – API token for authentication (not the user’s password)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sat_download.api.usgs.USGSAPI.API_URL">
+<span class="sig-name descname"><span class="pre">API_URL</span></span><a class="headerlink" href="#sat_download.api.usgs.USGSAPI.API_URL" title="Link to this definition">#</a></dt>
+<dd><p>Base URL for the USGS M2M API</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sat_download.api.usgs.USGSAPI.LOGIN_ENDPOINT">
+<span class="sig-name descname"><span class="pre">LOGIN_ENDPOINT</span></span><a class="headerlink" href="#sat_download.api.usgs.USGSAPI.LOGIN_ENDPOINT" title="Link to this definition">#</a></dt>
+<dd><p>Endpoint for authentication</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sat_download.api.usgs.USGSAPI.SEARCH_ENDPOINT">
+<span class="sig-name descname"><span class="pre">SEARCH_ENDPOINT</span></span><a class="headerlink" href="#sat_download.api.usgs.USGSAPI.SEARCH_ENDPOINT" title="Link to this definition">#</a></dt>
+<dd><p>Endpoint for searching scenes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sat_download.api.usgs.USGSAPI.DOWNLOAD_REQUEST_ENDPOINT">
+<span class="sig-name descname"><span class="pre">DOWNLOAD_REQUEST_ENDPOINT</span></span><a class="headerlink" href="#sat_download.api.usgs.USGSAPI.DOWNLOAD_REQUEST_ENDPOINT" title="Link to this definition">#</a></dt>
+<dd><p>Endpoint for requesting download URLs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sat_download.api.usgs.USGSAPI.DOWNLOAD_OPTIONS_ENDPOINT">
+<span class="sig-name descname"><span class="pre">DOWNLOAD_OPTIONS_ENDPOINT</span></span><a class="headerlink" href="#sat_download.api.usgs.USGSAPI.DOWNLOAD_OPTIONS_ENDPOINT" title="Link to this definition">#</a></dt>
+<dd><p>Endpoint for fetching download options</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Notes</p>
+<p>Authentication is performed using API tokens which must be generated
+through the USGS Earth Explorer portal. The password parameter should
+actually be the API token, not the user’s password.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#sat_download.api.base.SatelliteAPI" title="sat_download.api.base.SatelliteAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_download.api.base.SatelliteAPI</span></code></a></dt><dd><p>Base class defining the API interface</p>
+</dd>
+<dt><a class="reference internal" href="#sat_download.api.odata.ODataAPI" title="sat_download.api.odata.ODataAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_download.api.odata.ODataAPI</span></code></a></dt><dd><p>Implementation for Copernicus Data Space API</p>
+</dd>
+</dl>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">API_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://m2m.cr.usgs.gov/api/api/json/stable/'</span></em><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">DOWNLOAD_OPTIONS_ENDPOINT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'download-options'</span></em><a class="headerlink" href="#id4" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">DOWNLOAD_REQUEST_ENDPOINT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'download-request'</span></em><a class="headerlink" href="#id5" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">LOGIN_ENDPOINT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'login-token'</span></em><a class="headerlink" href="#id6" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">SEARCH_ENDPOINT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'scene-search'</span></em><a class="headerlink" href="#id7" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sat_download.api.usgs.USGSAPI.download">
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/sat_download/api/usgs.html#USGSAPI.download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_download.api.usgs.USGSAPI.download" title="Link to this definition">#</a></dt>
+<dd><p>Download a satellite image by its ID (URL).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_id</strong> (<em>str</em>) – The download URL for the image (not entity ID)</p></li>
+<li><p><strong>outname</strong> (<em>str</em>) – The output filename where the image will be saved</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The file is saved to the specified location on success</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Implementation of the abstract download method for USGS API.
+Uses tqdm to display a progress bar during download.
+Unlike other APIs, the image_id parameter is actually the download URL.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sat_download.api.usgs.USGSAPI.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_types.html#sat_download.data_types.search.SearchFilters" title="sat_download.data_types.search.SearchFilters"><span class="pre">SearchFilters</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="data_types.html#sat_download.data_types.search.SatelliteImage" title="sat_download.data_types.search.SatelliteImage"><span class="pre">SatelliteImage</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/sat_download/api/usgs.html#USGSAPI.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_download.api.usgs.USGSAPI.search" title="Link to this definition">#</a></dt>
+<dd><p>Search for satellite imagery using specified filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<a class="reference internal" href="data_types.html#sat_download.data_types.search.SearchFilters" title="sat_download.data_types.search.SearchFilters"><em>SearchFilters</em></a>) – The search filters to apply to the search</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary mapping product IDs to SatelliteImage objects</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SearchResults</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If the API request fails</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Implementation of the abstract search method for the USGS Earth Explorer API.
+Additional filtering is performed client-side on the returned results.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="services.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Services</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="data_types.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Types</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-sat_download.api.base">Base API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.base.SatelliteAPI"><code class="docutils literal notranslate"><span class="pre">SatelliteAPI</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.base.SatelliteAPI.bulk_search"><code class="docutils literal notranslate"><span class="pre">SatelliteAPI.bulk_search()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.base.SatelliteAPI.download"><code class="docutils literal notranslate"><span class="pre">SatelliteAPI.download()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.base.SatelliteAPI.search"><code class="docutils literal notranslate"><span class="pre">SatelliteAPI.search()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-sat_download.api.odata">OData API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.odata.ODataAPI"><code class="docutils literal notranslate"><span class="pre">ODataAPI</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.odata.ODataAPI.SEARCH_URL"><code class="docutils literal notranslate"><span class="pre">ODataAPI.SEARCH_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.odata.ODataAPI.DOWNLOAD_URL"><code class="docutils literal notranslate"><span class="pre">ODataAPI.DOWNLOAD_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.odata.ODataAPI.TOKEN_URL"><code class="docutils literal notranslate"><span class="pre">ODataAPI.TOKEN_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">ODataAPI.DOWNLOAD_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">ODataAPI.SEARCH_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">ODataAPI.TOKEN_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.odata.ODataAPI.download"><code class="docutils literal notranslate"><span class="pre">ODataAPI.download()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.odata.ODataAPI.search"><code class="docutils literal notranslate"><span class="pre">ODataAPI.search()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-sat_download.api.usgs">USGS API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI"><code class="docutils literal notranslate"><span class="pre">USGSAPI</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.API_URL"><code class="docutils literal notranslate"><span class="pre">USGSAPI.API_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.LOGIN_ENDPOINT"><code class="docutils literal notranslate"><span class="pre">USGSAPI.LOGIN_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.SEARCH_ENDPOINT"><code class="docutils literal notranslate"><span class="pre">USGSAPI.SEARCH_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.DOWNLOAD_REQUEST_ENDPOINT"><code class="docutils literal notranslate"><span class="pre">USGSAPI.DOWNLOAD_REQUEST_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.DOWNLOAD_OPTIONS_ENDPOINT"><code class="docutils literal notranslate"><span class="pre">USGSAPI.DOWNLOAD_OPTIONS_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">USGSAPI.API_URL</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">USGSAPI.DOWNLOAD_OPTIONS_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">USGSAPI.DOWNLOAD_REQUEST_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><code class="docutils literal notranslate"><span class="pre">USGSAPI.LOGIN_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><code class="docutils literal notranslate"><span class="pre">USGSAPI.SEARCH_ENDPOINT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.download"><code class="docutils literal notranslate"><span class="pre">USGSAPI.download()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sat_download.api.usgs.USGSAPI.search"><code class="docutils literal notranslate"><span class="pre">USGSAPI.search()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sergio Heredia
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Sergio Heredia.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

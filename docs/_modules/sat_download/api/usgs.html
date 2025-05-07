@@ -1,0 +1,690 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sat_download.api.usgs &#8212; sat_download 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=f9c1cefe"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/sat_download/api/usgs';</script>
+    <link rel="canonical" href="https://github.com/Aouei/remote-sensing-satellite-downloader/_modules/sat_download/api/usgs.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">sat_download 1.0.0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/data_types.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/factories.html">Factories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/enums.html">Enumerations</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for sat_download.api.usgs</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sat_download.api.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">SatelliteAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sat_download.data_types.search</span><span class="w"> </span><span class="kn">import</span> <span class="n">SearchFilters</span><span class="p">,</span> <span class="n">SearchResults</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sat_download.factories.search</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_satellite_image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sat_download.enums</span><span class="w"> </span><span class="kn">import</span> <span class="n">COLLECTIONS</span>
+
+
+<div class="viewcode-block" id="USGSAPI">
+<a class="viewcode-back" href="../../../modules/api.html#sat_download.api.usgs.USGSAPI">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">USGSAPI</span><span class="p">(</span><span class="n">SatelliteAPI</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implementation of SatelliteAPI for the USGS Earth Explorer API.</span>
+<span class="sd">    </span>
+<span class="sd">    This class provides methods to search and download satellite imagery from the</span>
+<span class="sd">    USGS Earth Explorer service using their Machine-to-Machine (M2M) API.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    username : str</span>
+<span class="sd">        Username for authentication with the USGS Earth Explorer API</span>
+<span class="sd">    password : str</span>
+<span class="sd">        API token for authentication (not the user&#39;s password)</span>
+<span class="sd">        </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    API_URL : str</span>
+<span class="sd">        Base URL for the USGS M2M API</span>
+<span class="sd">    LOGIN_ENDPOINT : str</span>
+<span class="sd">        Endpoint for authentication</span>
+<span class="sd">    SEARCH_ENDPOINT : str</span>
+<span class="sd">        Endpoint for searching scenes</span>
+<span class="sd">    DOWNLOAD_REQUEST_ENDPOINT : str</span>
+<span class="sd">        Endpoint for requesting download URLs</span>
+<span class="sd">    DOWNLOAD_OPTIONS_ENDPOINT : str</span>
+<span class="sd">        Endpoint for fetching download options</span>
+<span class="sd">        </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Authentication is performed using API tokens which must be generated</span>
+<span class="sd">    through the USGS Earth Explorer portal. The password parameter should</span>
+<span class="sd">    actually be the API token, not the user&#39;s password.</span>
+<span class="sd">    </span>
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    sat_download.api.base.SatelliteAPI : Base class defining the API interface</span>
+<span class="sd">    sat_download.api.odata.ODataAPI : Implementation for Copernicus Data Space API</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">API_URL</span> <span class="o">=</span> <span class="s2">&quot;https://m2m.cr.usgs.gov/api/api/json/stable/&quot;</span>
+    <span class="n">LOGIN_ENDPOINT</span> <span class="o">=</span> <span class="s2">&quot;login-token&quot;</span>
+    <span class="n">SEARCH_ENDPOINT</span> <span class="o">=</span> <span class="s2">&quot;scene-search&quot;</span>
+    <span class="n">DOWNLOAD_REQUEST_ENDPOINT</span> <span class="o">=</span> <span class="s2">&quot;download-request&quot;</span>
+    <span class="n">DOWNLOAD_OPTIONS_ENDPOINT</span> <span class="o">=</span> <span class="s1">&#39;download-options&#39;</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize USGS API client and authenticate with the service.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        username : str</span>
+<span class="sd">            Username for authentication with the USGS Earth Explorer API</span>
+<span class="sd">        password : str</span>
+<span class="sd">            API token for authentication (not the user&#39;s password)</span>
+<span class="sd">        </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Automatically calls the __login method to authenticate with USGS.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__login</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__login</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Authenticate with the USGS Earth Explorer API.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            Updates the self.api_key attribute on success</span>
+<span class="sd">            </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        Exception</span>
+<span class="sd">            If authentication fails</span>
+<span class="sd">            </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Private method that handles authentication and stores the token</span>
+<span class="sd">        for use with subsequent API requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="s1">&#39;token&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">}</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">API_URL</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">LOGIN_ENDPOINT</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;errorCode&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;X-Auth-Token&#39;</span><span class="p">:</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;errorCode&#39;</span><span class="p">])</span>    
+
+<div class="viewcode-block" id="USGSAPI.search">
+<a class="viewcode-back" href="../../../modules/api.html#sat_download.api.usgs.USGSAPI.search">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="n">SearchFilters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SearchResults</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Search for satellite imagery using specified filters.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filters : SearchFilters</span>
+<span class="sd">            The search filters to apply to the search</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        SearchResults</span>
+<span class="sd">            Dictionary mapping product IDs to SatelliteImage objects</span>
+<span class="sd">            </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        Exception</span>
+<span class="sd">            If the API request fails</span>
+<span class="sd">            </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Implementation of the abstract search method for the USGS Earth Explorer API.</span>
+<span class="sd">        Additional filtering is performed client-side on the returned results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__prepare_query</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span>
+        
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">API_URL</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">SEARCH_ENDPOINT</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;errorCode&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">bool</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;results&quot;</span><span class="p">]):</span>
+            <span class="n">scenes</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
+            <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__request_download_metadata</span><span class="p">(</span><span class="n">filters</span><span class="o">.</span><span class="n">collection</span><span class="p">,</span> <span class="n">scenes</span><span class="p">)</span>
+
+            <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="n">scenes</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">filters</span><span class="o">.</span><span class="n">is_set</span><span class="p">(</span><span class="s1">&#39;processing_level&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">filters</span><span class="o">.</span><span class="n">processing_level</span> <span class="ow">in</span> <span class="n">scene</span><span class="p">[</span><span class="s2">&quot;displayId&quot;</span><span class="p">]):</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="n">filters</span><span class="o">.</span><span class="n">is_set</span><span class="p">(</span><span class="s1">&#39;tile_id&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">filters</span><span class="o">.</span><span class="n">tile_id</span><span class="si">}</span><span class="s1">_&#39;</span> <span class="ow">in</span> <span class="n">scene</span><span class="p">[</span><span class="s1">&#39;displayId&#39;</span><span class="p">]):</span>
+                    <span class="k">continue</span>
+
+                <span class="n">image_id</span> <span class="o">=</span> <span class="n">scene</span><span class="p">[</span><span class="s2">&quot;entityId&quot;</span><span class="p">]</span>
+
+                <span class="n">url</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">met</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">met</span> <span class="ow">in</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;availableDownloads&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">met</span><span class="p">[</span><span class="s2">&quot;entityId&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">image_id</span><span class="p">),</span>
+                    <span class="kc">None</span>
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">url</span><span class="p">:</span>
+                    <span class="n">results</span><span class="p">[</span><span class="n">url</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_satellite_image</span><span class="p">(</span><span class="n">COLLECTIONS</span><span class="p">(</span><span class="n">filters</span><span class="o">.</span><span class="n">collection</span><span class="p">),</span> <span class="p">{</span><span class="s1">&#39;Name&#39;</span> <span class="p">:</span> <span class="n">scene</span><span class="p">[</span><span class="s2">&quot;displayId&quot;</span><span class="p">]})</span>
+
+            <span class="k">return</span> <span class="n">results</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;errorCode&quot;</span><span class="p">])</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__prepare_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span> <span class="p">:</span> <span class="n">SearchFilters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prepare a USGS API query from search filters.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filters : SearchFilters</span>
+<span class="sd">            The search filters to convert to USGS API query parameters</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            JSON string containing USGS API query parameters</span>
+<span class="sd">            </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Private method that converts SearchFilters into the specific</span>
+<span class="sd">        format required by the USGS Earth Explorer API.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;maxResults&#39;</span> <span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;startingNumber&#39;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;sceneFilter&#39;</span> <span class="p">:</span> <span class="p">{}}</span>
+        <span class="n">acquisitionFilter</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">spatialFilter</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">filters</span><span class="o">.</span><span class="n">is_set</span><span class="p">(</span><span class="s1">&#39;collection&#39;</span><span class="p">):</span>
+            <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;datasetName&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">filters</span><span class="o">.</span><span class="n">collection</span>
+        <span class="k">if</span> <span class="n">filters</span><span class="o">.</span><span class="n">is_set</span><span class="p">(</span><span class="s1">&#39;start_date&#39;</span><span class="p">):</span>
+            <span class="n">acquisitionFilter</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">start_date</span>
+        <span class="k">if</span> <span class="n">filters</span><span class="o">.</span><span class="n">is_set</span><span class="p">(</span><span class="s1">&#39;end_date&#39;</span><span class="p">):</span>
+            <span class="n">acquisitionFilter</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">end_date</span>
+        <span class="k">if</span> <span class="n">filters</span><span class="o">.</span><span class="n">is_set</span><span class="p">(</span><span class="s1">&#39;geometry&#39;</span><span class="p">):</span>
+            <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lat</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
+            
+            <span class="n">spatialFilter</span><span class="p">[</span><span class="s1">&#39;filterType&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;mbr&#39;</span>
+            <span class="n">spatialFilter</span><span class="p">[</span><span class="s1">&#39;lowerLeft&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="n">lat</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="n">lon</span><span class="p">}</span>
+            <span class="n">spatialFilter</span><span class="p">[</span><span class="s1">&#39;upperRight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="n">lat</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="n">lon</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">spatialFilter</span><span class="p">):</span>
+            <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;sceneFilter&#39;</span><span class="p">][</span><span class="s1">&#39;spatialFilter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spatialFilter</span>
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">acquisitionFilter</span><span class="p">):</span>
+            <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;sceneFilter&#39;</span><span class="p">][</span><span class="s1">&#39;acquisitionFilter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">acquisitionFilter</span>
+
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">__request_download_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">scenes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Request metadata needed for downloading images.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dataset : str</span>
+<span class="sd">            The collection identifier for the search results</span>
+<span class="sd">        scenes : dict</span>
+<span class="sd">            Dictionary containing scene search results</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Download metadata including download URLs</span>
+<span class="sd">            </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        Exception</span>
+<span class="sd">            If the metadata request fails</span>
+<span class="sd">            </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Private method that obtains download options and creates download</span>
+<span class="sd">        requests to generate URLs for the identified scenes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_downloads_options</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">scenes</span><span class="p">)</span>
+        <span class="n">download_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_download_ids</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;downloads&#39;</span> <span class="p">:</span> <span class="n">download_ids</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span> <span class="p">:</span> <span class="s1">&#39;sample&#39;</span><span class="p">}</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">API_URL</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">DOWNLOAD_REQUEST_ENDPOINT</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;errorCode&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;errorCode&#39;</span><span class="p">])</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">__get_downloads_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scenes</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get available download options for a set of scenes.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dataset : str</span>
+<span class="sd">            The collection identifier</span>
+<span class="sd">        scenes : List[dict]</span>
+<span class="sd">            List of scene metadata from search results</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            List of download options for the requested scenes</span>
+<span class="sd">            </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        Exception</span>
+<span class="sd">            If the options request fails</span>
+<span class="sd">            </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Private method that queries available download formats and options</span>
+<span class="sd">        for the identified scenes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">scene_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;entityId&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">scenes</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">]]</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;datasetName&#39;</span> <span class="p">:</span> <span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;entityIds&#39;</span> <span class="p">:</span> <span class="n">scene_ids</span><span class="p">}</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">API_URL</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">DOWNLOAD_OPTIONS_ENDPOINT</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    
+        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;errorCode&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;errorCode&#39;</span><span class="p">])</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">__get_download_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract download IDs from options for products that are available.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        options : List[dict]</span>
+<span class="sd">            List of download options from __get_downloads_options</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        List[dict]</span>
+<span class="sd">            List of entity/product ID pairs for available downloads</span>
+<span class="sd">            </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Private method that filters for available bundle products and</span>
+<span class="sd">        extracts their identifiers needed for download requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">download_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">product</span><span class="p">[</span><span class="s1">&#39;available&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span> <span class="ow">and</span> <span class="s1">&#39;Bundle&#39;</span> <span class="ow">in</span> <span class="n">product</span><span class="p">[</span><span class="s1">&#39;productName&#39;</span><span class="p">]:</span>
+                <span class="n">download_ids</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;entityId&#39;</span> <span class="p">:</span> <span class="n">product</span><span class="p">[</span><span class="s1">&#39;entityId&#39;</span><span class="p">],</span> <span class="s1">&#39;productId&#39;</span> <span class="p">:</span> <span class="n">product</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]})</span>
+
+        <span class="k">return</span> <span class="n">download_ids</span> 
+    
+<div class="viewcode-block" id="USGSAPI.download">
+<a class="viewcode-back" href="../../../modules/api.html#sat_download.api.usgs.USGSAPI.download">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_id</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outname</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download a satellite image by its ID (URL).</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        image_id : str</span>
+<span class="sd">            The download URL for the image (not entity ID)</span>
+<span class="sd">        outname : str</span>
+<span class="sd">            The output filename where the image will be saved</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            The file is saved to the specified location on success</span>
+<span class="sd">            </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Implementation of the abstract download method for USGS API.</span>
+<span class="sd">        Uses tqdm to display a progress bar during download.</span>
+<span class="sd">        Unlike other APIs, the image_id parameter is actually the download URL.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">MB</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>        
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">image_id</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="n">disposition</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;content-disposition&#39;</span><span class="p">]</span>
+
+                <span class="n">total_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Content-Length&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">//</span> <span class="n">MB</span>
+
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;filename=(.+)&quot;</span><span class="p">,</span> <span class="n">disposition</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outname</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">new_file</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span> <span class="o">=</span> <span class="n">MB</span><span class="p">),</span> <span class="n">total</span> <span class="o">=</span> <span class="n">total_size</span><span class="p">,</span>
+                                        <span class="n">unit</span> <span class="o">=</span> <span class="s1">&#39;MB&#39;</span><span class="p">,</span> <span class="n">desc</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Downloading image at </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">outname</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">):</span>
+                        <span class="n">new_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error en la descarga: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to download from </span><span class="si">{</span><span class="n">image_id</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sergio Heredia
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Sergio Heredia.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
