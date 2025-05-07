@@ -1,6 +1,4 @@
 from api.base import SatelliteAPI
-from api.odata import ODataAPI
-from api.usgs import USGSAPI
 
 from data_types.search import SearchFilters, SearchResults
 
