@@ -1,5 +1,5 @@
-from data_types.search import SatelliteImage
-from enums import COLLECTIONS
+from sat_download.data_types.search import SatelliteImage
+from sat_download.enums import COLLECTIONS
 
 
 def get_satellite_image(collection : COLLECTIONS, data : dict) -> SatelliteImage:

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from data_types.search import SearchFilters, SearchResults
+from sat_download.data_types.search import SearchFilters, SearchResults
 from datetime import datetime
 
 

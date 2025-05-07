@@ -5,10 +5,10 @@ import os
 
 from tqdm import tqdm
 from typing import List
-from api.base import SatelliteAPI
-from data_types.search import SearchFilters, SearchResults
-from factories.search import get_satellite_image
-from enums import COLLECTIONS
+from sat_download.api.base import SatelliteAPI
+from sat_download.data_types.search import SearchFilters, SearchResults
+from sat_download.factories.search import get_satellite_image
+from sat_download.enums import COLLECTIONS
 
 
 class USGSAPI(SatelliteAPI):

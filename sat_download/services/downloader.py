@@ -1,6 +1,5 @@
-from api.base import SatelliteAPI
-
-from data_types.search import SearchFilters, SearchResults
+from sat_download.api.base import SatelliteAPI
+from sat_download.data_types.search import SearchFilters, SearchResults
 
 
 class SatelliteImageDownloader:
