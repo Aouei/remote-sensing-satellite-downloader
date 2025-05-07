@@ -11,6 +11,38 @@ from sat_download.enums import COLLECTIONS
 
 
 class ODataAPI(SatelliteAPI):
+    """
+    Implementation of SatelliteAPI for the Copernicus Data Space Ecosystem OData API.
+    
+    This class provides methods to search and download satellite imagery from the
+    Copernicus Data Space Ecosystem using their OData API.
+    
+    Parameters
+    ----------
+    username : str
+        Username for authentication with the Copernicus Data Space API
+    password : str
+        Password for authentication with the Copernicus Data Space API
+        
+    Attributes
+    ----------
+    SEARCH_URL : str
+        Endpoint URL for searching satellite products
+    DOWNLOAD_URL : str
+        Endpoint URL for downloading satellite products
+    TOKEN_URL : str
+        Endpoint URL for obtaining authentication tokens
+        
+    Notes
+    -----
+    Authentication is performed using Keycloak OAuth2 tokens which are obtained
+    as needed for download operations.
+    
+    See Also
+    --------
+    sat_download.api.base.SatelliteAPI : Base class defining the API interface
+    sat_download.api.usgs.USGSAPI : Implementation for USGS Earth Explorer API
+    """
     SEARCH_URL = "https://catalogue.dataspace.copernicus.eu/odata/v1/Products"
     DOWNLOAD_URL = "https://download.dataspace.copernicus.eu/odata/v1/Products"
     TOKEN_URL = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
@@ -20,6 +52,24 @@ class ODataAPI(SatelliteAPI):
         super().__init__(username, password)
 
     def __prepare_query(self, filters : SearchFilters) -> str:
+        """
+        Prepare an OData query from search filters.
+        
+        Parameters
+        ----------
+        filters : SearchFilters
+            The search filters to convert to OData query parameters
+            
+        Returns
+        -------
+        dict
+            Dictionary containing OData query parameters
+            
+        Notes
+        -----
+        Private method that converts SearchFilters into OData-compatible
+        filter expressions for querying the Copernicus Data Space API.
+        """
         params = []
         if filters.is_set('collection'):
             params.append(f"Collection/Name eq '{filters.collection}'")
@@ -37,6 +87,24 @@ class ODataAPI(SatelliteAPI):
         return {"$filter": ' and '.join(params), "$orderby" : f"ContentDate/Start desc"}
     
     def __get_token(self) -> str:
+        """
+        Obtain an authentication token from the Copernicus Data Space API.
+        
+        Returns
+        -------
+        str
+            The access token for API authentication
+            
+        Raises
+        ------
+        Exception
+            If token creation fails
+            
+        Notes
+        -----
+        Private method that handles OAuth2 authentication with the Copernicus
+        identity service.
+        """
         data = {
             "client_id": "cdse-public",
             "username": self.username,
@@ -53,11 +121,53 @@ class ODataAPI(SatelliteAPI):
         return query.json()["access_token"]
     
     def __prepare_search_results(self, collection : str, images : List[OrderedDict]) -> SearchResults:
+        """
+        Convert API response data to standardized search results.
+        
+        Parameters
+        ----------
+        collection : str
+            The collection identifier for the search results
+        images : List[OrderedDict]
+            List of image metadata from API response
+            
+        Returns
+        -------
+        SearchResults
+            Dictionary mapping product IDs to SatelliteImage objects
+            
+        Notes
+        -----
+        Private method that processes raw API response data into the
+        standardized SearchResults format.
+        """
         results : SearchResults = { image['Id'] : get_satellite_image(COLLECTIONS(collection), image) for image in images }
 
         return results
 
     def search(self, filters : SearchFilters) -> SearchResults:
+        """
+        Search for satellite imagery using specified filters.
+        
+        Parameters
+        ----------
+        filters : SearchFilters
+            The search filters to apply to the search
+            
+        Returns
+        -------
+        SearchResults
+            Dictionary mapping product IDs to SatelliteImage objects
+            
+        Raises
+        ------
+        Exception
+            If the API request fails
+            
+        Notes
+        -----
+        Implementation of the abstract search method for the Copernicus Data Space API.
+        """
         query = self.__prepare_query(filters)
 
         response = requests.get(self.SEARCH_URL, params = query)
@@ -67,6 +177,31 @@ class ODataAPI(SatelliteAPI):
             raise Exception(f"Error en la solicitud: {response.status_code}")
     
     def download(self, image_id : str, outname : str) -> None:
+        """
+        Download a satellite image by its ID.
+        
+        Parameters
+        ----------
+        image_id : str
+            The unique identifier of the image to download
+        outname : str
+            The output filename where the image will be saved
+            
+        Returns
+        -------
+        str
+            Success message on successful download
+            
+        Raises
+        ------
+        Exception
+            If the download fails
+            
+        Notes
+        -----
+        Implementation of the abstract download method for the Copernicus Data Space API.
+        Uses tqdm to display a progress bar during download.
+        """
         MB = (1024 * 1024)
 
         keycloak_token = self.__get_token()
