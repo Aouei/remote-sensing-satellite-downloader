@@ -1,0 +1,87 @@
+import requests
+import os
+
+
+from typing import List, OrderedDict
+from tqdm import tqdm
+from api.base import SatelliteAPI
+from data_types.search import SearchFilters, SearchResults
+from factories.search import get_satellite_image
+from enums import COLLECTIONS
+
+
+class ODataAPI(SatelliteAPI):
+    SEARCH_URL = "https://catalogue.dataspace.copernicus.eu/odata/v1/Products"
+    DOWNLOAD_URL = "https://download.dataspace.copernicus.eu/odata/v1/Products"
+    TOKEN_URL = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
+
+
+    def __init__(self, username : str, password : str) -> None:
+        super().__init__(username, password)
+
+    def __prepare_query(self, filters : SearchFilters) -> str:
+        params = []
+        if filters.is_set('collection'):
+            params.append(f"Collection/Name eq '{filters.collection}'")
+        if filters.is_set('processing_level'):
+            params.append(f"contains(Name,'{filters.processing_level}')")
+        if filters.is_set('start_date'):
+            params.append(f"ContentDate/Start gt {filters.start_date}T00:00:00.000Z")
+        if filters.is_set('end_date'):
+            params.append(f"ContentDate/End lt {filters.end_date}T23:59:59.000Z")
+        if filters.is_set('geometry'):
+            params.append(f"OData.CSC.Intersects(area=geography'SRID=4326;{filters.geometry}')")
+        if filters.is_set('tile_id'):
+            params.append(f"contains(Name,'{filters.tile_id}')")
+
+        return {"$filter": ' and '.join(params), "$orderby" : f"ContentDate/Start desc"}
+    
+    def __get_token(self) -> str:
+        data = {
+            "client_id": "cdse-public",
+            "username": self.username,
+            "password": self.password,
+            "grant_type": "password",
+        }
+        
+        try:
+            query = requests.post(self.TOKEN_URL, data = data)
+            query.raise_for_status()
+        except Exception as _:
+            raise Exception(f"Keycloak token creation failed. Reponse from the server was: {query.json()}")
+        
+        return query.json()["access_token"]
+    
+    def __prepare_search_results(self, collection : str, images : List[OrderedDict]) -> SearchResults:
+        results : SearchResults = { image['Id'] : get_satellite_image(COLLECTIONS(collection), image) for image in images }
+
+        return results
+
+    def search(self, filters : SearchFilters) -> SearchResults:
+        query = self.__prepare_query(filters)
+
+        response = requests.get(self.SEARCH_URL, params = query)
+        if response.status_code == 200:
+            return self.__prepare_search_results(filters.collection, response.json()['value'])
+        else:
+            raise Exception(f"Error en la solicitud: {response.status_code}")
+    
+    def download(self, image_id : str, outname : str) -> None:
+        MB = (1024 * 1024)
+
+        keycloak_token = self.__get_token()
+        session = requests.Session()
+        session.headers.update({'Authorization': f'Bearer {keycloak_token}'})
+
+        url = f"{self.DOWNLOAD_URL}({image_id})/$value"
+        response = session.get(url, stream = True, verify = True, allow_redirects = True)
+    
+        if response.status_code == 200:
+            total_size = int(response.headers.get('Content-Length', 0)) // MB
+            with open(outname, "wb") as file:
+                for chunk in tqdm(response.iter_content(chunk_size = MB), total = total_size,
+                                  unit = 'MB', desc = f"Downloading image at {os.path.basename(outname)}"):
+                    file.write(chunk)
+            return f"Imagen {outname} descargada exitosamente."
+        else:
+            raise Exception(f"Error en la descarga: {response.status_code}")
