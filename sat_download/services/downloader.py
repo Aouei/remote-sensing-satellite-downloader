@@ -1,3 +1,5 @@
+import os
+
 from sat_download.api.base import SatelliteAPI
 from sat_download.data_types.search import SearchFilters, SearchResults
 
@@ -46,6 +48,36 @@ class SatelliteImageDownloader:
         except Exception as exc:
             print(exc)
 
+    def bulk_download(self, images : SearchResults, outdir : str) -> None:
+        """
+        Download multiple satellite images in bulk.
+        
+        Parameters
+        ----------
+        images : SearchResults
+            The search results containing image IDs to download
+        outdir : str
+            The output directory where the images will be saved
+            
+        Returns
+        -------
+        None
+            The files are saved to the specified location on success
+            
+        Notes
+        -----
+        Exceptions are caught and printed to console.
+        """
+        try:
+            os.makedirs(outdir, exist_ok=True)
+
+            for download_id, image in images.items():
+                self.api.download(download_id, os.path.join(outdir, image.filename))
+
+        except Exception as exc:
+            print(exc)
+
+
     def search(self, filters : SearchFilters) -> SearchResults:
         """
         Perform a standard search operation using specified filters.
@@ -69,7 +101,7 @@ class SatelliteImageDownloader:
         except Exception as exc:
             print(exc)
 
-    def download(self, image_id : str, outname : str) -> None:
+    def download(self, image_id : str, out_dir : str, outname : str) -> None:
         """
         Download a satellite image by its ID.
         
@@ -77,6 +109,8 @@ class SatelliteImageDownloader:
         ----------
         image_id : str
             The unique identifier of the image to download
+        outdir : str
+            The output directory where the image will be saved
         outname : str
             The output filename where the image will be saved
             
@@ -90,6 +124,7 @@ class SatelliteImageDownloader:
         Exceptions are caught and printed to console.
         """
         try:
-            return self.api.download(image_id, outname)
+            os.makedirs(out_dir, exist_ok=True)
+            return self.api.download(image_id, os.path.join(out_dir, outname))
         except Exception as exc:
             print(exc)
