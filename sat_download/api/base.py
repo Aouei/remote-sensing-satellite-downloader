@@ -82,7 +82,7 @@ class SatelliteAPI(ABC):
         Returns
         -------
         SearchResults
-            Dictionary mapping product IDs to SatelliteImage objects
+            Dictionary mapping product ID to SatelliteImage objects
             
         Notes
         -----
@@ -91,24 +91,28 @@ class SatelliteAPI(ABC):
         pass
 
     @abstractmethod
-    def download(self, image_id: str, outname : str):
+    def download(self, image_id: str, outname: str) -> str | None:
         """
         Download a satellite image by its ID.
-        
+
         Parameters
         ----------
         image_id : str
-            The unique identifier of the image to download
+            The unique identifier of the image to download.
         outname : str
-            The output filename where the image will be saved
-            
+            The output filename where the image will be saved.
+
         Returns
         -------
-        None or str
-            Implementation may return None or status message on success
-            
+        str | None
+            The file path of the downloaded image if the download is successful.
+            Returns None if the download fails.
+
         Notes
         -----
-        This is an abstract method that concrete implementations must override.
+        - This is an abstract method that concrete implementations must override.
+        - Implementations should handle any necessary authentication and API-specific
+          download logic.
+        - Exceptions should be handled appropriately to ensure the application remains stable.
         """
         pass

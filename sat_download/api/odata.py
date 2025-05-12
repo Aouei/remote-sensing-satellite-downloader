@@ -176,31 +176,35 @@ class ODataAPI(SatelliteAPI):
         else:
             raise Exception(f"Error en la solicitud: {response.status_code}")
     
-    def download(self, image_id : str, outname : str) -> None:
+    def download(self, image_id: str, outname: str) -> str | None:
         """
         Download a satellite image by its ID.
-        
+
         Parameters
         ----------
         image_id : str
-            The unique identifier of the image to download
+            The unique identifier of the image to download.
         outname : str
-            The output filename where the image will be saved
-            
+            The output filename where the image will be saved.
+
         Returns
         -------
-        str
-            Success message on successful download
-            
+        str | None
+            The file path of the downloaded image if the download is successful.
+            Returns None if the download fails.
+
         Raises
         ------
         Exception
-            If the download fails
-            
+            If the download fails due to an API error or network issue.
+
         Notes
         -----
-        Implementation of the abstract download method for the Copernicus Data Space API.
-        Uses tqdm to display a progress bar during download.
+        - This method implements the abstract `download` method for the Copernicus Data Space API.
+        - It uses OAuth2 authentication to obtain a token before initiating the download.
+        - A progress bar is displayed using `tqdm` to indicate the download progress.
+        - The method writes the downloaded file in chunks to avoid memory issues with large files.
+        - Exceptions are raised for HTTP errors or other failures during the download process.
         """
         MB = (1024 * 1024)
 
@@ -217,6 +221,7 @@ class ODataAPI(SatelliteAPI):
                 for chunk in tqdm(response.iter_content(chunk_size = MB), total = total_size,
                                   unit = 'MB', desc = f"Downloading image at {os.path.basename(outname)}"):
                     file.write(chunk)
-            return f"Imagen {outname} descargada exitosamente."
+
+            return outname
         else:
             raise Exception(f"Error en la descarga: {response.status_code}")

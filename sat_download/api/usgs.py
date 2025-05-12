@@ -308,7 +308,7 @@ class USGSAPI(SatelliteAPI):
 
         return download_ids 
     
-    def download(self, image_id : str, outname : str) -> None:
+    def download(self, image_id : str, outname : str) -> str | None:
         """
         Download a satellite image by its ID (URL).
         
@@ -345,6 +345,8 @@ class USGSAPI(SatelliteAPI):
                     for chunk in tqdm(response.iter_content(chunk_size = MB), total = total_size,
                                         unit = 'MB', desc = f"Downloading image at {os.path.basename(outname)}"):
                         new_file.write(chunk)
+            
+                return outname
             else:
                 raise Exception(f"Error en la descarga: {response.status_code}")
         except Exception as e:

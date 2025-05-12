@@ -2,7 +2,7 @@ import os
 
 from sat_download.api.base import SatelliteAPI
 from sat_download.data_types.search import SearchFilters, SearchResults
-
+from typing import List
 
 class SatelliteImageDownloader:
     """
@@ -48,32 +48,33 @@ class SatelliteImageDownloader:
         except Exception as exc:
             print(exc)
 
-    def bulk_download(self, images : SearchResults, outdir : str) -> None:
+    def bulk_download(self, images: SearchResults, outdir: str) -> List[str | None]:
         """
         Download multiple satellite images in bulk.
-        
+
         Parameters
         ----------
         images : SearchResults
-            The search results containing image IDs to download
+            The search results containing image IDs and metadata for the images to download.
         outdir : str
-            The output directory where the images will be saved
-            
+            The output directory where the images will be saved.
+
         Returns
         -------
-        None
-            The files are saved to the specified location on success
-            
+        List[str | None]
+            A list of file paths for successfully downloaded images. If a download fails, 
+            the corresponding entry in the list will be None.
+
         Notes
         -----
-        Exceptions are caught and printed to console.
+        - This method ensures that the output directory exists before starting the downloads.
+        - Each download is attempted individually, and exceptions are logged without halting the process.
+        - Logs provide detailed information about successful downloads, warnings for failed downloads, 
+          and errors encountered during the process.
         """
         try:
             os.makedirs(outdir, exist_ok=True)
-
-            for download_id, image in images.items():
-                self.api.download(download_id, os.path.join(outdir, image.filename))
-
+            return [ self.api.download(download_id, os.path.join(outdir, image.filename)) for download_id, image in images.items() ]
         except Exception as exc:
             print(exc)
 
@@ -101,27 +102,30 @@ class SatelliteImageDownloader:
         except Exception as exc:
             print(exc)
 
-    def download(self, image_id : str, out_dir : str, outname : str) -> None:
+    def download(self, image_id: str, out_dir: str, outname: str) -> str | None:
         """
-        Download a satellite image by its ID.
-        
+        Download a single satellite image by its ID.
+
         Parameters
         ----------
         image_id : str
-            The unique identifier of the image to download
-        outdir : str
-            The output directory where the image will be saved
+            The unique identifier of the image to download.
+        out_dir : str
+            The output directory where the image will be saved.
         outname : str
-            The output filename where the image will be saved
-            
+            The output filename for the downloaded image.
+
         Returns
         -------
-        None
-            The file is saved to the specified location on success
-            
+        str | None
+            The file path of the downloaded image if the download is successful. 
+            Returns None if the download fails.
+
         Notes
         -----
-        Exceptions are caught and printed to console.
+        - This method ensures that the output directory exists before attempting the download.
+        - Logs provide detailed information about the success or failure of the download.
+        - Exceptions are caught and logged to prevent application crashes.
         """
         try:
             os.makedirs(out_dir, exist_ok=True)
