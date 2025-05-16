@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 from dataclasses import dataclass
 
 
@@ -80,9 +80,10 @@ class SearchFilters:
     collection : str
     start_date : str
     end_date : str
-    processing_level : str = None
-    geometry : str = None
-    tile_id : str = None
+    processing_level : str | None = None
+    geometry : str | None = None
+    tile_id : str | None = None
+    contains : List[str] | None = None
 
     def is_set(self, value : str) -> bool:
         """
