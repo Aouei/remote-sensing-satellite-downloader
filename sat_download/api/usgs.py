@@ -191,8 +191,8 @@ class USGSAPI(SatelliteAPI):
         if filters.is_set('end_date'):
             acquisitionFilter['end'] = filters.end_date
         if filters.is_set('geometry'):
-            lat, lon = filters.geometry.replace(')', '').split('(')[-1].split(' ')
-            lat, lon = float(lat), float(lon)
+            lon, lat = filters.geometry.replace(')', '').split('(')[-1].split(' ')
+            lon, lat = float(lon), float(lat)
             
             spatialFilter['filterType'] = 'mbr'
             spatialFilter['lowerLeft'] = {'latitude': lat, 'longitude': lon}
