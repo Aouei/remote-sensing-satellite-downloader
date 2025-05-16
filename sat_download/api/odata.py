@@ -83,7 +83,10 @@ class ODataAPI(SatelliteAPI):
             params.append(f"OData.CSC.Intersects(area=geography'SRID=4326;{filters.geometry}')")
         if filters.is_set('tile_id'):
             params.append(f"contains(Name,'{filters.tile_id}')")
-
+        if filters.is_set('contains'):
+            for item in filters.contains:
+                params.append(f"contains(Name,'{item}')")
+                
         return {"$filter": ' and '.join(params), "$orderby" : f"ContentDate/Start desc"}
     
     def __get_token(self) -> str:
