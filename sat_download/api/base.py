@@ -65,7 +65,7 @@ class SatelliteAPI(ABC):
                     end = date
             results.update(products)
 
-            filters.end_date = date.strftime('%Y-%m-%d')
+            filters.end_date = end.strftime('%Y-%m-%d')
         
         return results
 
