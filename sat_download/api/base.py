@@ -55,19 +55,20 @@ class SatelliteAPI(ABC):
         """
         start = datetime.strptime(filters.start_date, '%Y-%m-%d')
         end = datetime.strptime(filters.end_date, '%Y-%m-%d')
-        last_date = start
 
         results : SearchResults = {}
-        while abs(start - end).days > 2 and last_date.strftime('%Y-%m-%d') != end.strftime('%Y-%m-%d'):
+        while abs(start - end).days > 2:
             products : SearchResults = self.search(filters)
             for product in products.values():
                 date = datetime.strptime(product.date, '%Y%m%d')
                 if date < end:
                     end = date
+            if not bool(products):
+                break
+            
             results.update(products)
 
-            last_date = end
-            filters.end_date = last_date.strftime('%Y-%m-%d')
+            filters.end_date = end.strftime('%Y-%m-%d')
         
         return results
 
