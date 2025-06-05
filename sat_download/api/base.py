@@ -60,7 +60,7 @@ class SatelliteAPI(ABC):
         results : SearchResults = {}
         products : SearchResults = self.search(filters)
 
-        while not bool(products) and last_filters != filters:
+        while bool(products) and last_filters != filters:
             last_filters = deepcopy(filters)
 
             for product in products.values():
