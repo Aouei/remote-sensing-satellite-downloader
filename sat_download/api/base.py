@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from sat_download.data_types.search import SearchFilters, SearchResults
 from datetime import datetime
+from copy import deepcopy
 
 
 class SatelliteAPI(ABC):
@@ -53,21 +54,21 @@ class SatelliteAPI(ABC):
         This implementation progressively narrows the search window by updating
         the end_date of the filters based on the most recent image found.
         """
-        start = datetime.strptime(filters.start_date, '%Y-%m-%d')
+        last_filters = None
         end = datetime.strptime(filters.end_date, '%Y-%m-%d')
 
         results : SearchResults = {}
-        while abs(start - end).days > 2:
-            products : SearchResults = self.search(filters)
+        products : SearchResults = self.search(filters)
+
+        while not bool(products) and last_filters != filters:
+            last_filters = deepcopy(filters)
+
             for product in products.values():
                 date = datetime.strptime(product.date, '%Y%m%d')
                 if date < end:
                     end = date
-            if not bool(products):
-                break
             
             results.update(products)
-
             filters.end_date = end.strftime('%Y-%m-%d')
         
         return results
