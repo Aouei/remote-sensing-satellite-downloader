@@ -308,7 +308,7 @@ class USGSAPI(SatelliteAPI):
 
         return download_ids 
     
-    def download(self, image_id : str, outname : str) -> str | None:
+    def download(self, image_id : str, outname : str, verbose : int) -> str | None:
         """
         Download a satellite image by its ID (URL).
         
@@ -318,7 +318,9 @@ class USGSAPI(SatelliteAPI):
             The download URL for the image (not entity ID)
         outname : str
             The output filename where the image will be saved
-            
+        verbose : int
+            Verbosity level for logging the download process. 0 = silent, >0 = progress bar,
+
         Returns
         -------
         None
@@ -342,9 +344,13 @@ class USGSAPI(SatelliteAPI):
 
                 filename = re.findall("filename=(.+)", disposition)[0].strip("\"")
                 with open(outname, 'wb') as new_file:
-                    for chunk in tqdm(response.iter_content(chunk_size = MB), total = total_size,
-                                        unit = 'MB', desc = f"Downloading image at {os.path.basename(outname)}"):
-                        new_file.write(chunk)
+                    if verbose == 0:
+                        for chunk in response.iter_content(chunk_size = MB):
+                            new_file.write(chunk)
+                    else:
+                        for chunk in tqdm(response.iter_content(chunk_size = MB), total = total_size,
+                                          unit = 'MB', desc = f"Downloading image at {os.path.basename(outname)}"):
+                            new_file.write(chunk)
             
                 return outname
             else:

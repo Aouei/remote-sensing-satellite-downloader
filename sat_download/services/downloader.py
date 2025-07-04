@@ -22,8 +22,9 @@ class SatelliteImageDownloader:
     sat_download.api.odata.ODataAPI : Implementation for Copernicus Data Space API
     sat_download.api.usgs.USGSAPI : Implementation for USGS Earth Explorer API
     """
-    def __init__(self, api : SatelliteAPI) -> None:
+    def __init__(self, api : SatelliteAPI, verbose = 0) -> None:
         self.api = api
+        self.verbose = verbose
 
     def bulk_search(self, filters: SearchFilters) -> SearchResults:
         """
@@ -74,7 +75,7 @@ class SatelliteImageDownloader:
         """
         try:
             os.makedirs(outdir, exist_ok=True)
-            return [ self.api.download(download_id, os.path.join(outdir, image.filename)) for download_id, image in images.items() ]
+            return [ self.api.download(download_id, os.path.join(outdir, image.filename), self.verbose) for download_id, image in images.items() ]
         except Exception as exc:
             print(exc)
 
@@ -129,6 +130,6 @@ class SatelliteImageDownloader:
         """
         try:
             os.makedirs(out_dir, exist_ok=True)
-            return self.api.download(image_id, os.path.join(out_dir, outname))
+            return self.api.download(image_id, os.path.join(out_dir, outname), self.verbose)
         except Exception as exc:
             print(exc)

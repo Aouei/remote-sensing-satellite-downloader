@@ -95,7 +95,7 @@ class SatelliteAPI(ABC):
         pass
 
     @abstractmethod
-    def download(self, image_id: str, outname: str) -> str | None:
+    def download(self, image_id: str, outname: str, verbose : int) -> str | None:
         """
         Download a satellite image by its ID.
 
@@ -105,6 +105,8 @@ class SatelliteAPI(ABC):
             The unique identifier of the image to download.
         outname : str
             The output filename where the image will be saved.
+        verbose : int
+            Verbosity level for logging the download process. 0 = silent, >0 = progress bar,
 
         Returns
         -------

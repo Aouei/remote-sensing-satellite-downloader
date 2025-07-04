@@ -179,7 +179,7 @@ class ODataAPI(SatelliteAPI):
         else:
             raise Exception(f"Error en la solicitud: {response.status_code}")
     
-    def download(self, image_id: str, outname: str) -> str | None:
+    def download(self, image_id: str, outname: str, verbose : int) -> str | None:
         """
         Download a satellite image by its ID.
 
@@ -189,7 +189,9 @@ class ODataAPI(SatelliteAPI):
             The unique identifier of the image to download.
         outname : str
             The output filename where the image will be saved.
-
+        verbose : int
+            Verbosity level for logging the download process. 0 = silent, >0 = progress bar,
+            
         Returns
         -------
         str | None
@@ -221,9 +223,13 @@ class ODataAPI(SatelliteAPI):
         if response.status_code == 200:
             total_size = int(response.headers.get('Content-Length', 0)) // MB
             with open(outname, "wb") as file:
-                for chunk in tqdm(response.iter_content(chunk_size = MB), total = total_size,
-                                  unit = 'MB', desc = f"Downloading image at {os.path.basename(outname)}"):
-                    file.write(chunk)
+                if verbose == 0:
+                    for chunk in response.iter_content(chunk_size = MB):
+                        file.write(chunk)
+                else:
+                    for chunk in tqdm(response.iter_content(chunk_size = MB), total = total_size,
+                                    unit = 'MB', desc = f"Downloading image at {os.path.basename(outname)}"):
+                        file.write(chunk)
 
             return outname
         else:
