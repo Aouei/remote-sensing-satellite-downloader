@@ -22,5 +22,5 @@ pip install .
 
 ### Install directly from git
 ```bash
-pip install git+https://github.com/Aouei/remote-sensing-satellite-downloader.git
+pip install sat_download
 ```

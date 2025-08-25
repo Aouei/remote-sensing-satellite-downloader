@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sat_download"
+version = "1.0.0"
+description = "A Python package for satellite imaginery download."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Aouei", email = "sergiohercar1@gmail.com" }
+]
+
+dependencies = [
+    'tqdm', 'requests',
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Aouei/remote-sensing-satellite-downloader"
+"Bug Tracker" = "https://github.com/Aouei/remote-sensing-satellite-downloader/issues"
