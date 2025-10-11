@@ -24,3 +24,6 @@ pip install .
 ```bash
 pip install sat_download
 ```
+
+### DOI
+[![DOI](https://zenodo.org/badge/979303990.svg)](https://doi.org/10.5281/zenodo.17323715)
