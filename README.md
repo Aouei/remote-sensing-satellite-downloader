@@ -12,15 +12,41 @@ This project provides tools for searching and downloading satellite imagery from
 
 To install the package, you can use one of the following methods:
 
-### Clone the Repository and Install with `pip`
+### Install with pip
 
+```bash
+pip install sat_download
+```
+
+### Install from source
 ```bash
 git clone https://github.com/Aouei/remote-sensing-satellite-downloader.git
 cd remote-sensing-satellite-downloader
 pip install .
 ```
 
-### Install directly from git
-```bash
-pip install sat_download
+## Citation
+
+If you use this software in your research, please cite it as:
+
+```bibtex
+@software{heredia_remote_sensing_satellite_downloader,
+  author       = {Heredia, Sergio and Caballero, Isabel},
+  title        = {Remote Sensing Satellite Downloader},
+  version      = {1.0.0},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.17323716},
+  url          = {https://github.com/Aouei/remote-sensing-satellite-downloader}
+}
 ```
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17323716.svg)](https://doi.org/10.5281/zenodo.17323716)
+
+## Acknowledgements
+
+This software was developed at the [Institute of Marine Sciences of Andalusia (ICMAN-CSIC)](https://www.icman.csic.es/), Spanish National Research Council (CSIC), Puerto Real, Spain.
+
+## License
+
+This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.

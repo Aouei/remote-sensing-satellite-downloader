@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+title: "sat_download"
+version: 1.0.0
+license: GPL-3.0-or-later
+type: software
+repository-code: "https://github.com/Aouei/remote-sensing-satellite-downloader"
+url: "https://aouei.github.io/remote-sensing-satellite-downloader/"
+doi: 10.5281/zenodo.17323716
+abstract: "A Python package for searching and downloading satellite imagery from various providers, such as Copernicus Data Space and USGS Earth Explorer."
+message: "If you use this software, please cite it as below."
+authors:
+  - given-names: Sergio
+    family-names: Heredia
+    affiliation: "Department of Ecology and Coastal Management, Institute of Marine Sciences of Andalusia (ICMAN-CSIC), Spanish National Research Council (CSIC), 11519 Puerto Real, Spain"
+    orcid: "https://orcid.org/0009-0003-9495-9625"
+  - given-names: Isabel
+    family-names: Caballero
+    affiliation: "Department of Ecology and Coastal Management, Institute of Marine Sciences of Andalusia (ICMAN-CSIC), Spanish National Research Council (CSIC), 11519 Puerto Real, Spain"
+    orcid: "https://orcid.org/0000-0001-7485-0989"
+keywords:
+  - remote sensing
+  - satellite imagery
+  - Copernicus
+  - USGS
+  - Earth observation
+  - data download
+  - Sentinel
+  - Landsat
