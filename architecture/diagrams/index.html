@@ -55,6 +55,8 @@
     
       <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -554,10 +556,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#complete-class-diagram" class="md-nav__link">
+  <a href="#class-diagram-api-layer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Complete Class Diagram
+        Class Diagram: API Layer
       
     </span>
   </a>
@@ -565,10 +567,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#component-diagram" class="md-nav__link">
+  <a href="#class-diagram-data-types" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Component Diagram
+        Class Diagram: Data Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-diagram-request-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Diagram: Request Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-diagram-data-factories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Diagram: Data &amp; Factories
       
     </span>
   </a>
@@ -1228,10 +1252,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#complete-class-diagram" class="md-nav__link">
+  <a href="#class-diagram-api-layer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Complete Class Diagram
+        Class Diagram: API Layer
       
     </span>
   </a>
@@ -1239,10 +1263,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#component-diagram" class="md-nav__link">
+  <a href="#class-diagram-data-types" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Component Diagram
+        Class Diagram: Data Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-diagram-request-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Diagram: Request Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-diagram-data-factories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Diagram: Data &amp; Factories
       
     </span>
   </a>
@@ -1360,9 +1406,8 @@
 <h1 id="architecture-diagrams">Architecture Diagrams<a class="headerlink" href="#architecture-diagrams" title="Permanent link">&para;</a></h1>
 <p>This document contains visual diagrams that illustrate the architecture and data flows of the project.</p>
 <hr />
-<h2 id="complete-class-diagram">Complete Class Diagram<a class="headerlink" href="#complete-class-diagram" title="Permanent link">&para;</a></h2>
+<h2 id="class-diagram-api-layer">Class Diagram: API Layer<a class="headerlink" href="#class-diagram-api-layer" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>classDiagram
-    %% Service Layer
     class SatelliteImageDownloader {
         -api: SatelliteAPI
         -verbose: int
@@ -1372,7 +1417,6 @@
         +bulk_download(images, outdir) List~str~
     }
 
-    %% Abstraction Layer
     class SatelliteAPI {
         &lt;&lt;abstract&gt;&gt;
         #username: str
@@ -1383,7 +1427,6 @@
         +bulk_search(filters) SearchResults
     }
 
-    %% API Implementations
     class ODataAPI {
         +SEARCH_URL: str
         +DOWNLOAD_URL: str
@@ -1409,7 +1452,12 @@
         -__request_download_metadata(collection, scenes) dict
     }
 
-    %% DTOs
+    SatelliteImageDownloader --&gt; SatelliteAPI : uses
+    SatelliteAPI &lt;|-- ODataAPI : implements
+    SatelliteAPI &lt;|-- USGSAPI : implements</code></pre>
+<hr />
+<h2 id="class-diagram-data-types">Class Diagram: Data Types<a class="headerlink" href="#class-diagram-data-types" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>classDiagram
     class SearchFilters {
         &lt;&lt;dataclass&gt;&gt;
         +collection: str
@@ -1433,7 +1481,6 @@
         +tile: str
     }
 
-    %% Enumerations
     class COLLECTIONS {
         &lt;&lt;enumeration&gt;&gt;
         SENTINEL_2
@@ -1441,29 +1488,15 @@
         LANDSAT_8
     }
 
-    %% Type Aliases
     class SearchResults {
         &lt;&lt;type alias&gt;&gt;
         Dict~str, SatelliteImage~
     }
 
-    %% Relationships
-    SatelliteImageDownloader --&gt; SatelliteAPI : uses
-    SatelliteImageDownloader ..&gt; SearchFilters : receives
-    SatelliteImageDownloader ..&gt; SearchResults : returns
-
-    SatelliteAPI &lt;|-- ODataAPI : implements
-    SatelliteAPI &lt;|-- USGSAPI : implements
-    SatelliteAPI ..&gt; SearchFilters : receives
-    SatelliteAPI ..&gt; SearchResults : returns
-
     SearchResults ..&gt; SatelliteImage : contains
-    SearchFilters ..&gt; COLLECTIONS : uses
-
-    ODataAPI ..&gt; COLLECTIONS : uses
-    USGSAPI ..&gt; COLLECTIONS : uses</code></pre>
+    SearchFilters ..&gt; COLLECTIONS : uses</code></pre>
 <hr />
-<h2 id="component-diagram">Component Diagram<a class="headerlink" href="#component-diagram" title="Permanent link">&para;</a></h2>
+<h2 id="component-diagram-request-flow">Component Diagram: Request Flow<a class="headerlink" href="#component-diagram-request-flow" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>graph TB
     subgraph "Presentation Layer"
         USER[User/Client]
@@ -1482,47 +1515,15 @@
         USGS[USGSAPI]
     end
 
-    subgraph "Data Layer"
-        FILTERS[SearchFilters]
-        IMAGE[SatelliteImage]
-        RESULTS[SearchResults]
-        ENUMS[COLLECTIONS]
-    end
-
-    subgraph "Factories"
-        FACTORY[get_satellite_image]
-        S2[get_sentinel2]
-        S3[get_sentinel3]
-        L8[get_landsat_8]
-    end
-
     subgraph "External Providers"
-        COPERNICUS[(Copernicus&lt;br/&gt;Data Space)]
-        EARTHEXPLORER[(USGS&lt;br/&gt;Earth Explorer)]
+        COPERNICUS[(Copernicus Data Space)]
+        EARTHEXPLORER[(USGS Earth Explorer)]
     end
 
     USER --&gt; DOWNLOADER
     DOWNLOADER --&gt; API
     API --&gt; ODATA
     API --&gt; USGS
-
-    DOWNLOADER -.-&gt; FILTERS
-    DOWNLOADER -.-&gt; RESULTS
-
-    ODATA --&gt; FACTORY
-    USGS --&gt; FACTORY
-
-    FACTORY --&gt; S2
-    FACTORY --&gt; S3
-    FACTORY --&gt; L8
-
-    S2 -.-&gt; IMAGE
-    S3 -.-&gt; IMAGE  
-    L8 -.-&gt; IMAGE
-
-    FILTERS -.-&gt; ENUMS
-    RESULTS -.-&gt; IMAGE
-
     ODATA &lt;--&gt; COPERNICUS
     USGS &lt;--&gt; EARTHEXPLORER
 
@@ -1533,6 +1534,46 @@
     style USGS fill:#4fc3f7
     style COPERNICUS fill:#f8bbd0
     style EARTHEXPLORER fill:#f8bbd0</code></pre>
+<hr />
+<h2 id="component-diagram-data-factories">Component Diagram: Data &amp; Factories<a class="headerlink" href="#component-diagram-data-factories" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TB
+    subgraph "API Implementations"
+        ODATA[ODataAPI]
+        USGS[USGSAPI]
+    end
+
+    subgraph "Factories"
+        FACTORY[get_satellite_image]
+        S2[get_sentinel2]
+        S3[get_sentinel3]
+        L8[get_landsat_8]
+    end
+
+    subgraph "Data Layer"
+        FILTERS[SearchFilters]
+        IMAGE[SatelliteImage]
+        RESULTS[SearchResults]
+        ENUMS[COLLECTIONS]
+    end
+
+    ODATA --&gt; FACTORY
+    USGS --&gt; FACTORY
+    FACTORY --&gt; S2
+    FACTORY --&gt; S3
+    FACTORY --&gt; L8
+    S2 -.-&gt; IMAGE
+    S3 -.-&gt; IMAGE
+    L8 -.-&gt; IMAGE
+    FILTERS -.-&gt; ENUMS
+    RESULTS -.-&gt; IMAGE
+
+    style ODATA fill:#4fc3f7
+    style USGS fill:#4fc3f7
+    style FACTORY fill:#fff9c4
+    style IMAGE fill:#c8e6c9
+    style RESULTS fill:#c8e6c9
+    style FILTERS fill:#c8e6c9
+    style ENUMS fill:#f8bbd0</code></pre>
 <hr />
 <h2 id="image-search-flow">Image Search Flow<a class="headerlink" href="#image-search-flow" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>sequenceDiagram
@@ -1854,7 +1895,6 @@
 <li><strong>Flow Diagrams</strong>: Process logic</li>
 <li><strong>State Diagrams</strong>: Object lifecycle</li>
 <li><strong>Activity Diagrams</strong>: Complete workflows</li>
-<li><strong>Deployment Diagrams</strong>: Infrastructure and communication</li>
 <li><strong>Package Diagrams</strong>: Dependencies between modules</li>
 </ul>
 <p>All these diagrams are automatically rendered by MkDocs using Mermaid.js when the documentation is built.</p>

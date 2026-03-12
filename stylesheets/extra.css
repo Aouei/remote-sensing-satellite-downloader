@@ -1,0 +1,6 @@
+/* Hacer que los diagramas Mermaid se expandan al ancho disponible */
+.mermaid svg {
+    max-width: none !important;
+    width: 100% !important;
+    height: auto !important;
+}
