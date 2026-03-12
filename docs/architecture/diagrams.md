@@ -4,11 +4,10 @@ This document contains visual diagrams that illustrate the architecture and data
 
 ---
 
-## Complete Class Diagram
+## Class Diagram: API Layer
 
 ```mermaid
 classDiagram
-    %% Service Layer
     class SatelliteImageDownloader {
         -api: SatelliteAPI
         -verbose: int
@@ -17,8 +16,7 @@ classDiagram
         +bulk_search(filters) SearchResults
         +bulk_download(images, outdir) List~str~
     }
-    
-    %% Abstraction Layer
+
     class SatelliteAPI {
         <<abstract>>
         #username: str
@@ -28,8 +26,7 @@ classDiagram
         +download(image_id, outname, verbose)* str
         +bulk_search(filters) SearchResults
     }
-    
-    %% API Implementations
+
     class ODataAPI {
         +SEARCH_URL: str
         +DOWNLOAD_URL: str
@@ -40,7 +37,7 @@ classDiagram
         -__prepare_query(filters) dict
         -__prepare_search_results(collection, images) SearchResults
     }
-    
+
     class USGSAPI {
         +API_URL: str
         +LOGIN_ENDPOINT: str
@@ -54,8 +51,18 @@ classDiagram
         -__prepare_query(filters) str
         -__request_download_metadata(collection, scenes) dict
     }
-    
-    %% DTOs
+
+    SatelliteImageDownloader --> SatelliteAPI : uses
+    SatelliteAPI <|-- ODataAPI : implements
+    SatelliteAPI <|-- USGSAPI : implements
+```
+
+---
+
+## Class Diagram: Data Types
+
+```mermaid
+classDiagram
     class SearchFilters {
         <<dataclass>>
         +collection: str
@@ -67,7 +74,7 @@ classDiagram
         +contains: List~str~
         +is_set(value) bool
     }
-    
+
     class SatelliteImage {
         <<dataclass>>
         +uuid: str
@@ -78,105 +85,58 @@ classDiagram
         +filename: str
         +tile: str
     }
-    
-    %% Enumerations
+
     class COLLECTIONS {
         <<enumeration>>
         SENTINEL_2
         SENTINEL_3
         LANDSAT_8
     }
-    
-    %% Type Aliases
+
     class SearchResults {
         <<type alias>>
         Dict~str, SatelliteImage~
     }
-    
-    %% Relationships
-    SatelliteImageDownloader --> SatelliteAPI : uses
-    SatelliteImageDownloader ..> SearchFilters : receives
-    SatelliteImageDownloader ..> SearchResults : returns
-    
-    SatelliteAPI <|-- ODataAPI : implements
-    SatelliteAPI <|-- USGSAPI : implements
-    SatelliteAPI ..> SearchFilters : receives
-    SatelliteAPI ..> SearchResults : returns
-    
+
     SearchResults ..> SatelliteImage : contains
     SearchFilters ..> COLLECTIONS : uses
-    
-    ODataAPI ..> COLLECTIONS : uses
-    USGSAPI ..> COLLECTIONS : uses
 ```
 
 ---
 
-## Component Diagram
+## Component Diagram: Request Flow
 
 ```mermaid
 graph TB
     subgraph "Presentation Layer"
         USER[User/Client]
     end
-    
+
     subgraph "Service Layer"
         DOWNLOADER[SatelliteImageDownloader]
     end
-    
+
     subgraph "Abstraction Layer"
         API[SatelliteAPI]
     end
-    
+
     subgraph "API Implementations"
         ODATA[ODataAPI]
         USGS[USGSAPI]
     end
-    
-    subgraph "Data Layer"
-        FILTERS[SearchFilters]
-        IMAGE[SatelliteImage]
-        RESULTS[SearchResults]
-        ENUMS[COLLECTIONS]
-    end
-    
-    subgraph "Factories"
-        FACTORY[get_satellite_image]
-        S2[get_sentinel2]
-        S3[get_sentinel3]
-        L8[get_landsat_8]
-    end
-    
+
     subgraph "External Providers"
-        COPERNICUS[(Copernicus<br/>Data Space)]
-        EARTHEXPLORER[(USGS<br/>Earth Explorer)]
+        COPERNICUS[(Copernicus Data Space)]
+        EARTHEXPLORER[(USGS Earth Explorer)]
     end
-    
+
     USER --> DOWNLOADER
     DOWNLOADER --> API
     API --> ODATA
     API --> USGS
-    
-    DOWNLOADER -.-> FILTERS
-    DOWNLOADER -.-> RESULTS
-    
-    ODATA --> FACTORY
-    USGS --> FACTORY
-    
-    FACTORY --> S2
-    FACTORY --> S3
-    FACTORY --> L8
-    
-    S2 -.-> IMAGE
-    S3 -.-> IMAGE  
-    L8 -.-> IMAGE
-    
-    FILTERS -.-> ENUMS
-    RESULTS -.-> IMAGE
-    
     ODATA <--> COPERNICUS
     USGS <--> EARTHEXPLORER
-    
+
     style USER fill:#e1f5ff
     style DOWNLOADER fill:#b3e5fc
     style API fill:#81d4fa
@@ -184,6 +144,51 @@ graph TB
     style USGS fill:#4fc3f7
     style COPERNICUS fill:#f8bbd0
     style EARTHEXPLORER fill:#f8bbd0
+```
+
+---
+
+## Component Diagram: Data & Factories
+
+```mermaid
+graph TB
+    subgraph "API Implementations"
+        ODATA[ODataAPI]
+        USGS[USGSAPI]
+    end
+
+    subgraph "Factories"
+        FACTORY[get_satellite_image]
+        S2[get_sentinel2]
+        S3[get_sentinel3]
+        L8[get_landsat_8]
+    end
+
+    subgraph "Data Layer"
+        FILTERS[SearchFilters]
+        IMAGE[SatelliteImage]
+        RESULTS[SearchResults]
+        ENUMS[COLLECTIONS]
+    end
+
+    ODATA --> FACTORY
+    USGS --> FACTORY
+    FACTORY --> S2
+    FACTORY --> S3
+    FACTORY --> L8
+    S2 -.-> IMAGE
+    S3 -.-> IMAGE
+    L8 -.-> IMAGE
+    FILTERS -.-> ENUMS
+    RESULTS -.-> IMAGE
+
+    style ODATA fill:#4fc3f7
+    style USGS fill:#4fc3f7
+    style FACTORY fill:#fff9c4
+    style IMAGE fill:#c8e6c9
+    style RESULTS fill:#c8e6c9
+    style FILTERS fill:#c8e6c9
+    style ENUMS fill:#f8bbd0
 ```
 
 ---
@@ -198,27 +203,27 @@ sequenceDiagram
     participant Impl as ODataAPI/USGSAPI
     participant Provider as External Provider
     participant Factory as get_satellite_image()
-    
+
     User->>Downloader: search(filters)
     activate Downloader
-    
+
     Downloader->>API: search(filters)
     activate API
-    
+
     API->>Impl: search(filters)
     activate Impl
-    
+
     Impl->>Impl: Authenticate
     Note over Impl: OAuth2 or<br/>API Token
-    
+
     Impl->>Impl: Prepare query
     Note over Impl: OData or<br/>JSON REST
-    
+
     Impl->>Provider: HTTP Request
     activate Provider
     Provider-->>Impl: JSON/XML Response
     deactivate Provider
-    
+
     loop For each image
         Impl->>Factory: get_satellite_image(collection, data)
         activate Factory
@@ -227,13 +232,13 @@ sequenceDiagram
         Factory-->>Impl: SatelliteImage
         deactivate Factory
     end
-    
+
     Impl-->>API: SearchResults
     deactivate Impl
-    
+
     API-->>Downloader: SearchResults
     deactivate API
-    
+
     Downloader-->>User: SearchResults
     deactivate Downloader
 ```
@@ -250,41 +255,41 @@ sequenceDiagram
     participant Impl as ODataAPI/USGSAPI
     participant Provider as External Provider
     participant FS as File System
-    
+
     User->>Downloader: bulk_download(images, outdir)
     activate Downloader
-    
+
     Downloader->>FS: Create directory
     FS-->>Downloader: OK
-    
+
     loop For each image
         Downloader->>API: download(image_id, filepath, verbose)
         activate API
-        
+
         API->>Impl: download(image_id, filepath, verbose)
         activate Impl
-        
+
         Impl->>Impl: Get download URL
         Note over Impl: May require<br/>authentication
-        
+
         Impl->>Provider: HTTP Request (stream)
         activate Provider
-        
+
         loop Data chunks
             Provider-->>Impl: Binary chunk
             Impl->>FS: Write chunk
         end
-        
+
         Provider-->>Impl: Download complete
         deactivate Provider
-        
+
         Impl-->>API: File path
         deactivate Impl
-        
+
         API-->>Downloader: File path
         deactivate API
     end
-    
+
     Downloader-->>User: List of paths
     deactivate Downloader
 ```
@@ -307,7 +312,7 @@ flowchart TD
     I -->|Yes| K{Filters<br/>changed?}
     K -->|No| J
     K -->|Yes| E
-    
+
     style A fill:#e1f5ff
     style D fill:#ffcdd2
     style J fill:#c8e6c9
@@ -339,32 +344,32 @@ graph LR
         D[services/]
         E[enums.py]
     end
-    
+
     subgraph api/
         A1[base.py]
         A2[odata.py]
         A3[usgs.py]
     end
-    
+
     subgraph data_types/
         B1[search.py]
     end
-    
+
     subgraph factories/
         C1[search.py]
     end
-    
+
     subgraph services/
         D1[downloader.py]
     end
-    
+
     A --> A1
     A --> A2
     A --> A3
     B --> B1
     C --> C1
     D --> D1
-    
+
     D1 --> A1
     A1 --> B1
     A2 --> A1
@@ -374,7 +379,7 @@ graph LR
     C1 --> B1
     C1 --> E
     B1 --> E
-    
+
     style A fill:#bbdefb
     style B fill:#c5e1a5
     style C fill:#fff9c4
@@ -387,30 +392,30 @@ graph LR
 ```mermaid
 stateDiagram-v2
     [*] --> Initialized: __init__(api)
-    
+
     Initialized --> Searching: search(filters)
     Searching --> ResultsObtained: success
     Searching --> Error: failure
-    
+
     ResultsObtained --> Downloading: bulk_download()
     Downloading --> DownloadingImage: for each image
-    
+
     DownloadingImage --> Authenticating
     Authenticating --> RequestingURL
     RequestingURL --> Streaming
     Streaming --> WritingFile
     WritingFile --> ImageDownloaded
-    
+
     ImageDownloaded --> DownloadingImage: more images
     ImageDownloaded --> Completed: all downloaded
-    
+
     Error --> [*]
     Completed --> [*]
-    
+
     note right of Authenticating
         OAuth2 or API Token
     end note
-    
+
     note right of Streaming
         Download by chunks
         with progress bar
@@ -426,36 +431,36 @@ flowchart TD
     Start([User starts program]) --> Init[Create API instance]
     Init --> CreateDownloader[Create SatelliteImageDownloader]
     CreateDownloader --> DefineFilters[Define SearchFilters]
-    
+
     DefineFilters --> Search{Search type?}
     Search -->|Simple| SearchSimple[search filters]
     Search -->|Bulk| SearchBulk[bulk_search filters]
-    
+
     SearchSimple --> CheckResults{Results found?}
     SearchBulk --> CheckResults
-    
+
     CheckResults -->|No| NoResults[Show message]
     CheckResults -->|Yes| ShowResults[Show results]
-    
+
     ShowResults --> DecideDownload{Download?}
     DecideDownload -->|No| End([End])
     DecideDownload -->|Yes| CreateDir[Create directory]
-    
+
     CreateDir --> Download[bulk_download]
     Download --> ProcessImages[Process each image]
-    
+
     ProcessImages --> Authenticate[Authenticate with provider]
     Authenticate --> RequestURL[Request download URL]
     RequestURL --> StreamData[Download data]
     StreamData --> SaveFile[Save file]
-    
+
     SaveFile --> MoreImages{More images?}
     MoreImages -->|Yes| ProcessImages
     MoreImages -->|No| ShowPaths[Show downloaded paths]
-    
+
     NoResults --> End
     ShowPaths --> End
-    
+
     style Start fill:#e1f5ff
     style End fill:#c8e6c9
     style Search fill:#fff9c4
@@ -473,37 +478,37 @@ graph TB
     subgraph "User Layer"
         U[User]
     end
-    
+
     subgraph "Facade Pattern"
         F[SatelliteImageDownloader]
     end
-    
+
     subgraph "Abstract Factory Pattern"
         AF[SatelliteAPI]
     end
-    
+
     subgraph "Strategy Pattern"
         S1[ODataAPI Strategy]
         S2[USGSAPI Strategy]
     end
-    
+
     subgraph "Factory Method Pattern"
         FM[get_satellite_image]
         FM1[get_sentinel2]
         FM2[get_sentinel3]
         FM3[get_landsat_8]
     end
-    
+
     subgraph "DTO Pattern"
         DTO1[SearchFilters]
         DTO2[SatelliteImage]
         DTO3[SearchResults]
     end
-    
+
     subgraph "Template Method Pattern"
         TM[bulk_search]
     end
-    
+
     U --> F
     F --> AF
     AF --> TM
@@ -514,12 +519,12 @@ graph TB
     FM --> FM1
     FM --> FM2
     FM --> FM3
-    
+
     F -.uses.-> DTO1
     F -.returns.-> DTO3
     FM -.creates.-> DTO2
     DTO3 -.contains.-> DTO2
-    
+
     style U fill:#e1f5ff
     style F fill:#b3e5fc
     style AF fill:#81d4fa
@@ -544,7 +549,6 @@ These diagrams provide different views of the architecture:
 - **Flow Diagrams**: Process logic
 - **State Diagrams**: Object lifecycle
 - **Activity Diagrams**: Complete workflows
-- **Deployment Diagrams**: Infrastructure and communication
 - **Package Diagrams**: Dependencies between modules
 
 All these diagrams are automatically rendered by MkDocs using Mermaid.js when the documentation is built.

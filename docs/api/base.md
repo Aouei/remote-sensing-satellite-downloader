@@ -99,14 +99,4 @@ See: [Design Patterns](../architecture/design-patterns.md)
 
 ## Related Types
 
-::: sat_download.data_types.search.SearchFilters
-    options:
-      show_root_heading: true
-      show_source: false
-      members: false
-
-::: sat_download.data_types.search.SatelliteImage
-    options:
-      show_root_heading: true
-      show_source: false
-      members: false
+See [Search Types](../data-types/search.md) for full documentation on `SearchFilters`, `SatelliteImage`, and `SearchResults`.
