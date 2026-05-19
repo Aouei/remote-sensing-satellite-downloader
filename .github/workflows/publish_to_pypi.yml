@@ -1,0 +1,123 @@
+name: Auto Release and Publish
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  auto-release:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.head_commit.message, '[release-major]') ||
+      contains(github.event.head_commit.message, '[release-minor]') ||
+      contains(github.event.head_commit.message, '[release-patch]')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Determine version bump type
+        id: bump_type
+        run: |
+          if [[ "${{ github.event.head_commit.message }}" == *"[release-major]"* ]]; then
+            echo "type=major" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.head_commit.message }}" == *"[release-minor]"* ]]; then
+            echo "type=minor" >> $GITHUB_OUTPUT
+          else
+            echo "type=patch" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get current version and bump
+        id: version
+        run: |
+          CURRENT_VERSION=$(grep -oP '(?<=version = ")[^"]*' pyproject.toml)
+          echo "current=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
+
+          if [ "${{ steps.bump_type.outputs.type }}" = "major" ]; then
+            MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0
+          elif [ "${{ steps.bump_type.outputs.type }}" = "minor" ]; then
+            MINOR=$((MINOR + 1)); PATCH=0
+          else
+            PATCH=$((PATCH + 1))
+          fi
+
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          echo "new=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $CURRENT_VERSION → $NEW_VERSION"
+
+      - name: Update version in pyproject.toml
+        run: |
+          sed -i 's/version = ".*"/version = "${{ steps.version.outputs.new }}"/' pyproject.toml
+
+      - name: Commit version bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pyproject.toml
+          git commit -m "chore: bump version to ${{ steps.version.outputs.new }}"
+
+      - name: Create and push tag
+        run: |
+          git tag -a "v${{ steps.version.outputs.new }}" -m "Release version ${{ steps.version.outputs.new }}"
+
+      - name: Push changes and tag
+        run: |
+          git push origin main
+          git push origin "v${{ steps.version.outputs.new }}"
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.version.outputs.new }}
+          release_name: Release v${{ steps.version.outputs.new }}
+          body: |
+            ## Changes in v${{ steps.version.outputs.new }}
+
+            **Type**: ${{ steps.bump_type.outputs.type }} version bump
+            **Previous version**: ${{ steps.version.outputs.current }}
+
+            ### Documentation
+            📚 [View Documentation](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }})
+
+            ### Installation
+            ```bash
+            pip install sat_download==${{ steps.version.outputs.new }}
+            ```
+          draft: false
+          prerelease: false
+
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+
+      - name: Build package
+        run: python -m build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          print-hash: true
+
+      - name: Trigger documentation build
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: trigger-docs

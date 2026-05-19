@@ -33,7 +33,7 @@ If you use this software in your research, please cite it as:
 @software{heredia_remote_sensing_satellite_downloader,
   author       = {Heredia, Sergio and Caballero, Isabel},
   title        = {Remote Sensing Satellite Downloader},
-  version      = {1.0.0},
+  version      = {1.0.1},
   year         = {2026},
   publisher    = {Zenodo},
   doi          = {10.5281/zenodo.17323716},

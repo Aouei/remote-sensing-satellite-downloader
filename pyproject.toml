@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sat_download"
-version = "1.0.0"
+version = "1.0.1"
 description = "A Python package for satellite imaginery download."
 readme = "README.md"
 requires-python = ">=3.11"

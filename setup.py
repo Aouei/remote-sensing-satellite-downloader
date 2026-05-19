@@ -7,7 +7,7 @@ requirements = [
 
 setup(
     name="sat_download",
-    version="1.0.0",
+    version="1.0.1",
     author="Sergio Heredia",
     author_email="sergiohercar1@gmail.com",
     description=" A python library to download remote sensing data like Sentinel-2 or Landsat-8 using diferent APIs like Copernicus OData API.",

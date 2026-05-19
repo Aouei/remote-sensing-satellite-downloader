@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: "sat_download"
-version: 1.0.0
+version: 1.0.1
 license: GPL-3.0-or-later
 type: software
 repository-code: "https://github.com/Aouei/remote-sensing-satellite-downloader"

@@ -1,0 +1,32 @@
+name: Build and Deploy Documentation
+
+on:
+  repository_dispatch:
+    types: [trigger-docs]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install mkdocs mkdocs-material mkdocstrings[python]
+
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force
