@@ -97,6 +97,7 @@ class USGSAPI(SatelliteAPI):
         payload = json.dumps(payload)
 
         response = requests.post(f'{self.API_URL}{self.LOGIN_ENDPOINT}', payload)
+        response.raise_for_status()
         response = json.loads(response.text)
 
         if response['errorCode'] is None:
@@ -131,35 +132,38 @@ class USGSAPI(SatelliteAPI):
         query = self.__prepare_query(filters)
         
         response = requests.post(f"{self.API_URL}{self.SEARCH_ENDPOINT}", query, headers=self.api_key)
+        response.raise_for_status()
         response = json.loads(response.text)
 
-        if response["errorCode"] is None and bool(response["data"]["results"]):
-            scenes = response["data"]
-            metadata = self.__request_download_metadata(filters.collection, scenes)
-
-            results = {}
-
-            for scene in scenes["results"]:
-                if filters.is_set('processing_level') and (not filters.processing_level in scene["displayId"]):
-                    continue
-
-                if filters.is_set('tile_id') and (not f'_{filters.tile_id}_' in scene['displayId']):
-                    continue
-
-                image_id = scene["entityId"]
-
-                url = next(
-                    (met["url"] for met in metadata["availableDownloads"] if met["entityId"] == image_id),
-                    None
-                )
-
-                if url:
-                    results[url] = get_satellite_image(COLLECTIONS(filters.collection), {'Name' : scene["displayId"]})
-
-            return results
-
-        else:
+        if response["errorCode"] is not None:
             raise Exception(response["errorCode"])
+
+        if not response["data"]["results"]:
+            return {}
+
+        scenes = response["data"]
+        metadata = self.__request_download_metadata(filters.collection, scenes)
+
+        results = {}
+
+        for scene in scenes["results"]:
+            if filters.is_set('processing_level') and (not filters.processing_level in scene["displayId"]):
+                continue
+
+            if filters.is_set('tile_id') and (not f'_{filters.tile_id}_' in scene['displayId']):
+                continue
+
+            image_id = scene["entityId"]
+
+            url = next(
+                (met["url"] for met in metadata["availableDownloads"] if met["entityId"] == image_id),
+                None
+            )
+
+            if url:
+                results[url] = get_satellite_image(COLLECTIONS(filters.collection), {'Name' : scene["displayId"]})
+
+        return results
 
     def __prepare_query(self, filters : SearchFilters) -> str:
         """
@@ -237,6 +241,7 @@ class USGSAPI(SatelliteAPI):
         payload = {'downloads' : download_ids, 'label' : 'sample'}
         payload = json.dumps(payload)
         response = requests.post(f'{self.API_URL}{self.DOWNLOAD_REQUEST_ENDPOINT}', payload, headers = self.api_key)
+        response.raise_for_status()
         response = json.loads(response.text)
 
         if response['errorCode'] is None:
@@ -275,8 +280,9 @@ class USGSAPI(SatelliteAPI):
         payload = json.dumps(payload)
 
         response = requests.post(f'{self.API_URL}{self.DOWNLOAD_OPTIONS_ENDPOINT}', payload, headers = self.api_key)
+        response.raise_for_status()
         response = json.loads(response.text)
-    
+
         if response['errorCode'] is None:
             return response['data']
         else:

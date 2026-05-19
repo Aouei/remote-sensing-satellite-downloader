@@ -44,10 +44,7 @@ class SatelliteImageDownloader:
         -----
         Exceptions are caught and printed to console.
         """
-        try:
-            return self.api.bulk_search(filters)        
-        except Exception as exc:
-            print(exc)
+        return self.api.bulk_search(filters)
 
     def bulk_download(self, images: SearchResults, outdir: str) -> List[str | None]:
         """
@@ -83,25 +80,23 @@ class SatelliteImageDownloader:
     def search(self, filters : SearchFilters) -> SearchResults:
         """
         Perform a standard search operation using specified filters.
-        
+
         Parameters
         ----------
         filters : SearchFilters
             The search filters to apply to the search
-            
+
         Returns
         -------
         SearchResults
             The results from the search operation
-            
-        Notes
-        -----
-        Exceptions are caught and printed to console.
+
+        Raises
+        ------
+        Exception
+            If the API request fails
         """
-        try:
-            return self.api.search(filters)        
-        except Exception as exc:
-            print(exc)
+        return self.api.search(filters)
 
     def download(self, image_id: str, out_dir: str, outname: str) -> str | None:
         """
